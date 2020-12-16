@@ -27,14 +27,65 @@ d3.csv("breitbartData.csv").then((data) => {
   });
   // group the data with the word as the key
 
+  var output = {};
+
+  for (var i = 0; i < data.length; i++) {
+    var item = data[i];
+    // Has the word been come across already? Create an empty array in `output` at property `output[word]`
+    if (!output[item.Word]) output[item.Word] = [];
+
+    // For all rows, add the item to the appropriate array.
+    output[item.Word].push({ date: item.Date, count: item.Count });
+  }
+
+  var the_words = Object.keys(output);
+  // console.log(the_words);
+
+  
+
+  // var new_data = nest.entries(data);
+  // console.log(nest);
+
+  // console.log(nest.Obama);
+
   const words = d3
     .nest()
     .key(function (d) {
       return d.Word;
     })
     .entries(data);
+  //
+  // console.log(words);
 
-  
+  // var the_words = [
+  //   "Obama",
+  //   "Trump",
+  //   "ISIS",
+  //   "Hoax",
+  //   "Media",
+  //   "Guns",
+  //   "Russia",
+  //   "Putin",
+  //   "Extremmist",
+  //   "God",
+  // ];
+
+  for (var ix = 0; ix < the_words.length; ix++) {
+    var the_name = [];
+    the_name.varname = the_words[n];
+    for (var i = 0; i < words[0].values.length; i++) {
+      let our_obj = {};
+      our_obj["date"] = words[ix].values[i].Date;
+      our_obj["count"] = words[ix].values[i].Count;
+      our_obj.varname = the_words[ix];
+      the_name.push(our_obj);
+    }
+  }
+
+  // console.log(the_name);
+  // console.log(words[0].values[0].Date);
+
+  // console.log(words[0].values[136].Count);
 
   const legend_keys = [];
 
@@ -169,6 +220,15 @@ d3.csv("breitbartData.csv").then((data) => {
       return words[i].key;
     });
 
+  // for (var i = 0; i < the_words.length; i++) {
+  //   var name = the_words[i];
+
+  // }
+
+  // format var obama = [
+  //   {date: dec 11, count: x}
+  // ]
+
   // draws lines
 
   // const the_path = svg
@@ -213,13 +273,14 @@ d3.csv("breitbartData.csv").then((data) => {
     our_dates.push(data[ix].Date);
   }
 
-  function update(data, dates, other) {
+  function update(data) {
     // x axis
+
     var xAxis = d3
       .scaleTime() // creaters linear scale for time
       .domain(
         d3.extent(
-          dates,
+          data,
           // d3.extent returns [min, max]
           (d) => d
         )
@@ -227,10 +288,10 @@ d3.csv("breitbartData.csv").then((data) => {
       .range([margin.left - -30, width - margin.right]);
 
     svg
-      .selectAll(".myYaxis")
+      .selectAll(".x-axis")
       .transition()
       .duration(3000)
-      .call(d3.axisLeft(xAxis));
+      .call(d3.axisBottom(xAxis));
 
     var yAxis = d3
       .scaleLinear()
@@ -238,7 +299,7 @@ d3.csv("breitbartData.csv").then((data) => {
       .range([height - margin.bottom, margin.top]);
 
     svg
-      .selectAll(".myYaxis")
+      .selectAll(".y-axis")
       .transition()
       .duration(3000)
       .call(d3.axisLeft(yAxis));
@@ -301,7 +362,14 @@ d3.csv("breitbartData.csv").then((data) => {
 
 // console.log(words);
 
+// https://www.d3-graph-gallery.com/graph/line_change_data.html
+
+// format var obama = [
+//   {date: dec 11, count: x}
+// ]
+
 // Seperate each word into it's own dataset
+// store data set in each variable
 // https://stackoverflow.com/questions/52682018/javascript-d3-create-datasets-from-one-set-of-data
 // each word should hold precedence
 // shrink y axis on update to the max of the count of our words
