@@ -38,15 +38,38 @@ d3.csv("breitbartData.csv").then((data) => {
     output[item.Word].push({ date: item.Date, count: item.Count });
   }
 
-  var the_words = Object.keys(output);
-  // console.log(the_words);
+  // console.log(output["Obama"][0].count);
 
-  
+  // store all the counts in an array
+  // find max of that
+  // store in k, v pair of word: "Word", max_count: "Count"
 
-  // var new_data = nest.entries(data);
-  // console.log(nest);
+  console.log(output)
 
-  // console.log(nest.Obama);
+  function doStuff() {
+    // create array of keys
+    var the_words = Object.keys(output);
+    var obama_counts = [];
+    var data_count = {};
+    for (var n = 0; n < the_words.length; n++) {
+      var new_word = the_words[n]; // word we use to index 'output'
+      // produce
+      for (var i = 0; i < output[new_word].length; i++) {
+        obama_counts.push(output[new_word][i].count);
+      }
+      var the_max = Math.max.apply(Math, obama_counts);
+      data_count;
+    }
+    console.log(obama_counts);
+
+    var the_max = Math.max.apply(Math, obama_counts);
+    // // console.log(typeof obama_counts);
+    // console.log(the_max);
+  }
+
+  // for each word in (array of words)
+
+  doStuff();
 
   const words = d3
     .nest()
