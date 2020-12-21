@@ -27,49 +27,17 @@ d3.csv("breitbartData.csv").then((data) => {
   });
   // group the data with the word as the key
 
-  var output = {};
-
-  for (var i = 0; i < data.length; i++) {
-    var item = data[i];
-    // Has the word been come across already? Create an empty array in `output` at property `output[word]`
-    if (!output[item.Word]) output[item.Word] = [];
-
-    // For all rows, add the item to the appropriate array.
-    output[item.Word].push({ date: item.Date, count: item.Count });
-  }
-
   // console.log(output["Obama"][0].count);
 
   // store all the counts in an array
   // find max of that
   // store in k, v pair of word: "Word", max_count: "Count"
 
-  console.log(output);
-
-  function doStuff() {
-    // create array of keys
-    var the_words = Object.keys(output);
-    var obama_counts = [];
-    var data_count = {};
-    for (var n = 0; n < the_words.length; n++) {
-      var new_word = the_words[n]; // word we use to index 'output'
-      // produce
-      for (var i = 0; i < output[new_word].length; i++) {
-        obama_counts.push(output[new_word][i].count);
-      }
-      var the_max = Math.max.apply(Math, obama_counts);
-      data_count;
-    }
-    console.log(obama_counts);
-
-    var the_max = Math.max.apply(Math, obama_counts);
-    // // console.log(typeof obama_counts);
-    // console.log(the_max);
-  }
+  // console.log(output["Obama"][0);
 
   // for each word in (array of words)
 
-  doStuff();
+  // Once we have the word grouped with the max count of that word, we can place that info in the domain of our "update" graph
 
   const words = d3
     .nest()
@@ -93,17 +61,17 @@ d3.csv("breitbartData.csv").then((data) => {
   //   "God",
   // ];
 
-  for (var ix = 0; ix < the_words.length; ix++) {
-    var the_name = [];
-    the_name.varname = the_words[n];
-    for (var i = 0; i < words[0].values.length; i++) {
-      let our_obj = {};
-      our_obj["date"] = words[ix].values[i].Date;
-      our_obj["count"] = words[ix].values[i].Count;
-      our_obj.varname = the_words[ix];
-      the_name.push(our_obj);
-    }
-  }
+  // for (var ix = 0; ix < the_words.length; ix++) {
+  //   var the_name = [];
+  //   the_name.varname = the_words[n];
+  //   for (var i = 0; i < words[0].values.length; i++) {
+  //     let our_obj = {};
+  //     our_obj["date"] = words[ix].values[i].Date;
+  //     our_obj["count"] = words[ix].values[i].Count;
+  //     our_obj.varname = the_words[ix];
+  //     the_name.push(our_obj);
+  //   }
+  // }
 
   // console.log(the_name);
   // console.log(words[0].values[0].Date);
@@ -199,21 +167,6 @@ d3.csv("breitbartData.csv").then((data) => {
 
   // create legend shapes and locations
 
-  // legend
-  //   .selectAll("rect")
-  //   .data(words)
-  //   .enter()
-  //   .append("rect")
-  //   .attr("x", width + 65)
-  //   .attr("y", function (d, i) {
-  //     return i * 50;
-  //   })
-  //   .attr("width", 10)
-  //   .attr("height", 10)
-  //   .style("fill", function (d) {
-  //     return color(d.key);
-  //   });
-
   const legendGroups = legend
     .selectAll("g.legend-item")
     .data(words)
@@ -254,27 +207,27 @@ d3.csv("breitbartData.csv").then((data) => {
 
   // draws lines
 
-  // const the_path = svg
-  //   .selectAll(".line")
-  //   .data(words)
-  //   .enter()
-  //   .append("path")
-  //   .attr("class", "line")
-  //   .attr("fill", "none")
-  //   .attr("stroke", function (d) {
-  //     return color(d.key);
-  //   })
-  //   .attr("stroke-width", 1.5)
-  //   .attr("d", function (d) {
-  //     return d3
-  //       .line()
-  //       .x(function (d) {
-  //         return x(d.Date);
-  //       })
-  //       .y(function (d) {
-  //         return y(d.Count);
-  //       })(d.values);
-  //   });
+  const the_path = svg
+    .selectAll(".line")
+    .data(words)
+    .enter()
+    .append("path")
+    .attr("class", "line")
+    .attr("fill", "none")
+    .attr("stroke", function (d) {
+      return color(d.key);
+    })
+    .attr("stroke-width", 1.5)
+    .attr("d", function (d) {
+      return d3
+        .line()
+        .x(function (d) {
+          return x(d.Date);
+        })
+        .y(function (d) {
+          return y(d.Count);
+        })(d.values);
+    });
   // update function
 
   var series = [];
@@ -296,7 +249,48 @@ d3.csv("breitbartData.csv").then((data) => {
     our_dates.push(data[ix].Date);
   }
 
-  function update(data) {
+  var output = {};
+
+  for (var i = 0; i < data.length; i++) {
+    var item = data[i];
+    // Has the word been come across already? Create an empty array in `output` at property `output[word]`
+    if (!output[item.Word]) output[item.Word] = [];
+
+    // For all rows, add the item to the appropriate array.
+    output[item.Word].push({ date: item.Date, count: item.Count });
+  }
+
+  // pass in data_count.(word)
+  function doStuff() {
+    // create array of keys
+    var the_words = Object.keys(output);
+    var data_count = {};
+    for (var n = 0; n < the_words.length; n++) {
+      var obama_counts = [];
+      var new_word = the_words[n]; // word we use to index 'output'
+      // produce
+      for (var i = 0; i < output[new_word].length; i++) {
+        obama_counts.push(output[new_word][i].count);
+        // console.log(obama_counts); // adds count of words to array
+      }
+      var the_max = Math.max.apply(Math, obama_counts);
+      data_count[new_word] = { count: the_max };
+      // console.log(the_max);
+      // data_count;
+      // console.log(data_count);
+    }
+
+    return data_count;
+
+    // button onclick(update(data_count.Obama.count))
+
+    // var the_max = Math.max.apply(Math, obama_counts);
+    // // console.log(typeof obama_counts);
+    // console.log(the_max);
+  }
+  var dc_count = doStuff();
+
+  function update(data_count, data) {
     // x axis
 
     var xAxis = d3
@@ -305,7 +299,7 @@ d3.csv("breitbartData.csv").then((data) => {
         d3.extent(
           data,
           // d3.extent returns [min, max]
-          (d) => d
+          (d) => d.Date
         )
       )
       .range([margin.left - -30, width - margin.right]);
@@ -318,7 +312,7 @@ d3.csv("breitbartData.csv").then((data) => {
 
     var yAxis = d3
       .scaleLinear()
-      .domain([0, d3.max(data, (d) => d.Count)])
+      .domain([0, d3.max(data_count, (d) => d.count)])
       .range([height - margin.bottom, margin.top]);
 
     svg
@@ -376,12 +370,13 @@ d3.csv("breitbartData.csv").then((data) => {
   }
 
   // console.log(series[8].count);
-  update(data, our_dates, series[8]);
-  // console.log(series[10].count);
-
-  // trump would be series[0]
-  // obama would be series[1] - this is what we pass into the function
+  update(dc_count.Obama, data);
 });
+// console.log(series[10].count);
+
+//   // trump would be series[0]
+//   // obama would be series[1] - this is what we pass into the function
+// });
 
 // console.log(words);
 
