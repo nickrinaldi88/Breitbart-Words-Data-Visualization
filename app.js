@@ -207,27 +207,27 @@ d3.csv("breitbartData.csv").then((data) => {
 
   // draws lines
 
-  const the_path = svg
-    .selectAll(".line")
-    .data(words)
-    .enter()
-    .append("path")
-    .attr("class", "line")
-    .attr("fill", "none")
-    .attr("stroke", function (d) {
-      return color(d.key);
-    })
-    .attr("stroke-width", 1.5)
-    .attr("d", function (d) {
-      return d3
-        .line()
-        .x(function (d) {
-          return x(d.Date);
-        })
-        .y(function (d) {
-          return y(d.Count);
-        })(d.values);
-    });
+  // const the_path = svg
+  //   .selectAll(".line")
+  //   .data(words)
+  //   .enter()
+  //   .append("path")
+  //   .attr("class", "line")
+  //   .attr("fill", "none")
+  //   .attr("stroke", function (d) {
+  //     return color(d.key);
+  //   })
+  //   .attr("stroke-width", 1.5)
+  //   .attr("d", function (d) {
+  //     return d3
+  //       .line()
+  //       .x(function (d) {
+  //         return x(d.Date);
+  //       })
+  //       .y(function (d) {
+  //         return y(d.Count);
+  //       })(d.values);
+  //   });
   // update function
 
   var series = [];
@@ -259,22 +259,25 @@ d3.csv("breitbartData.csv").then((data) => {
     // For all rows, add the item to the appropriate array.
     output[item.Word].push({ date: item.Date, count: item.Count });
   }
-
+  // console.log(output.date);
   // pass in data_count.(word)
   function doStuff() {
     // create array of keys
     var the_words = Object.keys(output);
     var data_count = {};
     for (var n = 0; n < the_words.length; n++) {
-      var obama_counts = [];
+      var our_list = [];
       var new_word = the_words[n]; // word we use to index 'output'
       // produce
       for (var i = 0; i < output[new_word].length; i++) {
-        obama_counts.push(output[new_word][i].count);
+        our_list.push({
+          date: output[new_word][i].date,
+          count: output[new_word][i].count,
+        });
         // console.log(obama_counts); // adds count of words to array
       }
-      var the_max = Math.max.apply(Math, obama_counts);
-      data_count[new_word] = { count: the_max };
+      // var the_max = Math.max.apply(Math, obama_counts);
+      data_count[new_word] = our_list;
       // console.log(the_max);
       // data_count;
       // console.log(data_count);
@@ -288,7 +291,39 @@ d3.csv("breitbartData.csv").then((data) => {
     // // console.log(typeof obama_counts);
     // console.log(the_max);
   }
+
+  // function doStuff() {
+  //   // create array of keys
+  //   var the_words = Object.keys(output);
+  //   var data_count = {};
+  //   for (var n = 0; n < the_words.length; n++) {
+  //     var obama_counts = [];
+  //     var new_word = the_words[n]; // word we use to index 'output'
+  //     // produce
+  //     for (var i = 0; i < output[new_word].length; i++) {
+  //       obama_counts.push(output[new_word][i].count);
+  //       // console.log(obama_counts); // adds count of words to array
+  //     }
+  //     var the_max = Math.max.apply(Math, obama_counts);
+  //     data_count[new_word] = { count: the_max };
+  //     // console.log(the_max);
+  //     // data_count;
+  //     // console.log(data_count);
+  //   }
+  //   return data_count;
+  // }
+
+  var pres = [
+    { date: "jan1", count: 23 },
+    { date: "jan2", count: 54 },
+  ];
+
   var dc_count = doStuff();
+  console.log(dc_count);
+
+  // console.log(dc_count);
+  // console.log(data);
+  // convert dc_count to an array
 
   function update(data_count, data) {
     // x axis
@@ -312,7 +347,7 @@ d3.csv("breitbartData.csv").then((data) => {
 
     var yAxis = d3
       .scaleLinear()
-      .domain([0, d3.max(data_count, (d) => d.count)])
+      .domain([0, data_count.count])
       .range([height - margin.bottom, margin.top]);
 
     svg
@@ -321,64 +356,63 @@ d3.csv("breitbartData.csv").then((data) => {
       .duration(3000)
       .call(d3.axisLeft(yAxis));
 
-    var u = svg.selectAll(".linetest").data([other], function (d) {
-      return other.count;
+    let result = data.map((d) => d.Date);
+    console.log(result);
+
+    var u = svg.selectAll(".linetest").data([data], function (d) {
+      return data.Count;
     });
 
-    const the_path = svg
-      .selectAll(".line")
-      .data(words)
-      .enter()
-      .append("path")
-      .attr("class", "line")
-      .attr("fill", "none")
-      .attr("stroke", function (d) {
-        return color(d.key);
-      })
-      .attr("stroke-width", 1.5)
-      .attr("d", function (d) {
-        return d3
-          .line()
-          .x(function (d) {
-            return x(d.Date);
-          })
-          .y(function (d) {
-            return y(d.Count);
-          })(d.values);
-      });
-
-    // u.enter()
+    // const the_path = svg
+    //   .selectAll(".line")
+    //   .data(words)
+    //   .enter()
     //   .append("path")
-    //   .attr("class", "lineTest")
-    //   .merge(u)
-    //   .transition()
-    //   .duration(3000)
-    //   .attr(
-    //     "d", function
-    //     d3
+    //   .attr("class", "line")
+    //   .attr("fill", "none")
+    //   .attr("stroke", function (d) {
+    //     return color(d.key);
+    //   })
+    //   .attr("stroke-width", 1.5)
+    //   .attr("d", function (d) {
+    //     return d3
     //       .line()
     //       .x(function (d) {
-    //         return x(our_dates);
+    //         return x(d.Date);
     //       })
     //       .y(function (d) {
-    //         return y(data.Count);
-    //       })
-    //   )
-    //   .attr("fill", "none")
-    //   .attr("stroke", "steelblue")
-    //   .attr("stroke-width", 2.5);
+    //         return y(d.Count);
+    //       })(d.values);
+    //   });
+
+    u.enter()
+      .append("path")
+      .attr("class", "lineTest")
+      .merge(u)
+      .transition()
+      .duration(3000)
+      .attr(
+        "d",
+        d3
+          .line()
+          .x(function (d) {
+            return x(data.Date);
+          })
+          .y(function (d) {
+            return y(data.Count);
+          })
+      )
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 2.5);
   }
 
   // console.log(series[8].count);
-  update(dc_count.Obama, data);
+  update(dc_count.Extremist, output);
 });
-// console.log(series[10].count);
 
-//   // trump would be series[0]
-//   // obama would be series[1] - this is what we pass into the function
-// });
-
-// console.log(words);
+//
+// https://stackoverflow.com/questions/19590865/from-an-array-of-objects-extract-value-of-a-property-as-array
 
 // https://www.d3-graph-gallery.com/graph/line_change_data.html
 
