@@ -2,6 +2,11 @@
     text-align: center;
 }
 
+path{
+    stroke-width: 1px;
+    stroke: black;
+}
+
 /* svg{
     border: 3px solid red;
 } */
