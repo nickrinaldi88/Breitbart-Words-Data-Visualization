@@ -36,8 +36,8 @@ d3.csv(
 
   // set the dimensions and margins of the graph
   var margin = { top: 20, right: 30, bottom: 30, left: 0 },
-    width = 1000 - margin.left - margin.right,
-    height = 600 - margin.top - margin.bottom;
+    width = 600 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
   var svg = d3
@@ -45,6 +45,7 @@ d3.csv(
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    .attr("viewbox", "0 0 1400 600")
     .append("g")
     .attr("transform", "translate(40, 20)");
   // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
