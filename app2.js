@@ -37,7 +37,7 @@ d3.csv(
       top: 20,
       right: 30,
       bottom: 30,
-      left: 0
+      left: 0,
     },
     width = 1200 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
@@ -106,13 +106,13 @@ d3.csv(
       .attr(
         "d",
         d3
-        .line()
-        .x(function (d) {
-          return x(d.date);
-        })
-        .y(function (d) {
-          return y(d.count);
-        })
+          .line()
+          .x(function (d) {
+            return x(d.date);
+          })
+          .y(function (d) {
+            return y(d.count);
+          })
       )
       .attr("fill", "none")
       .attr("stroke", "steelblue")
@@ -123,9 +123,44 @@ d3.csv(
   update(current_data.Obama);
 });
 
+d3.csv("bb_totals.csv", function (data) {
+  console.log(data);
+
+  var margin = {
+      top: 20,
+      right: 30,
+      bottom: 30,
+      left: 0,
+    },
+    width = 1200 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+  var svg2 = d3
+    .select("#sec-div")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var x = d3
+    .scaleLinear()
+    .domain([0, d3.max(data, (d) => d.Count)])
+    .range([0, width]);
+  svg
+    .append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x))
+    .selectAll("text")
+    .attr("transform", "translate(-10, 0)rotate(-45)")
+    .style("text-anchor", "end");
+});
+
 // TODO:
 // 1. resize our graph
 // 2. color and stylize
 //      - Add a background opacity
 //      - Change font
 //
+
+// http://learnjsdata.com/read_data.html
