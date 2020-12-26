@@ -33,19 +33,27 @@ d3.csv(
   });
 
   // set the dimensions and margins of the graph
-  var margin = { top: 20, right: 30, bottom: 30, left: 0 },
-    width = 600 - margin.left - margin.right,
+  var margin = {
+      top: 20,
+      right: 30,
+      bottom: 30,
+      left: 0
+    },
+    width = 1200 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
   var svg = d3
     .select("#main-div")
+    .classed("svg-container", true)
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    // .attr("viewbox", "0 0 1400 600")
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    // .attr("width", width + margin.left + margin.right)
+    // .attr("height", height + margin.top + margin.bottom)
+    .attr("viewBox", "0 0 1400 800")
     .append("g")
-    .attr("transform", "translate(40, 20)");
+    .attr("transform", "translate(40, 20)")
+    .classed("svg-content-responsive", true);
   // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   // Initialise a X axis:
@@ -98,13 +106,13 @@ d3.csv(
       .attr(
         "d",
         d3
-          .line()
-          .x(function (d) {
-            return x(d.date);
-          })
-          .y(function (d) {
-            return y(d.count);
-          })
+        .line()
+        .x(function (d) {
+          return x(d.date);
+        })
+        .y(function (d) {
+          return y(d.count);
+        })
       )
       .attr("fill", "none")
       .attr("stroke", "steelblue")
