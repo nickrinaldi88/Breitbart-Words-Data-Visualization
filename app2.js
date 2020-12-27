@@ -123,8 +123,8 @@ d3.csv(
   update(current_data.Obama);
 });
 
-d3.csv("bb_totals.csv", function (data) {
-  console.log(data);
+d3.csv("bb_totals.csv").then(function (csv) {
+  console.log(csv);
 
   var margin = {
       top: 20,
@@ -143,24 +143,83 @@ d3.csv("bb_totals.csv", function (data) {
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  var x = d3
-    .scaleLinear()
-    .domain([0, d3.max(data, (d) => d.Count)])
-    .range([0, width]);
-  svg
+  var x = d3.scaleLinear().domain([0, 40000]).range([0, width]);
+
+  // console.log(d3.max(csv, (d) => d.Count));
+
+  svg2
     .append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x))
     .selectAll("text")
     .attr("transform", "translate(-10, 0)rotate(-45)")
     .style("text-anchor", "end");
+
+  var y = d3
+    .scaleBand()
+    .range([0, height])
+    .domain(
+      csv.map(function (d) {
+        return d.Word;
+      })
+    )
+    .padding(5);
+  svg2.append("g").call(d3.axisLeft(y));
+
+  // lines
+  svg2
+    .selectAll("myline")
+    .data(csv)
+    .enter()
+    .append("line")
+    .attr("x1", function (d) {
+      return x(d.Count);
+    })
+    .attr("x2", x(0))
+    .attr("y1", function (d) {
+      return y(d.Count);
+    })
+    .attr("y2", function (d) {
+      return y(d.Count);
+    })
+    .attr("stroke", "grey");
+
+  svg2
+    .selectAll("mycircle")
+    .data(csv)
+    .enter()
+    .append("circle")
+    .attr("cx", function (d) {
+      return x(d.Count);
+    })
+    .attr("cy", function (d) {
+      return y(d.Word);
+    })
+    .attr("r", "4")
+    .style("fill", "#69b3a2")
+    .attr("stroke", "black");
+
+  // create select option, with trump and without trump
+  // create function that changes x and y values with and without trumps addition
+
+  // d3.select("select")
+  //   .selectAll("option")
+  //   .data(Object.keys(current_data))
+  //   .enter()
+  //   .append("option")
+  //   .text(function (d) {
+  //     return d;
+  //   });
 });
 
 // TODO:
 // 1. resize our graph
+// 1a. move over y axis
 // 2. color and stylize
 //      - Add a background opacity
 //      - Change font
 //
 
 // http://learnjsdata.com/read_data.html
+
+// https://www.d3-graph-gallery.com/lollipop
