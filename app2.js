@@ -137,11 +137,15 @@ d3.csv("bb_totals.csv").then(function (csv) {
 
   var svg2 = d3
     .select("#sec-div")
+    .classed("svg-container", true)
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    // .attr("width", width + margin.left + margin.right)
+    // .attr("height", height + margin.top + margin.bottom)
+    .attr("viewBox", "0 0 1400 800")
     .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(40, 20)")
+    .classed("svg-content-responsive", true);
 
   var x = d3.scaleLinear().domain([0, 40000]).range([0, width]);
 
@@ -177,10 +181,10 @@ d3.csv("bb_totals.csv").then(function (csv) {
     })
     .attr("x2", x(0))
     .attr("y1", function (d) {
-      return y(d.Count);
+      return y(d.Word);
     })
     .attr("y2", function (d) {
-      return y(d.Count);
+      return y(d.Word);
     })
     .attr("stroke", "grey");
 
