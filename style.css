@@ -12,8 +12,21 @@ path{
     
 } */
 
+select{
+    display: block;
+    margin: 0 auto;
+} 
+
 body{
     background-color: #E0EEC6;
+}
+
+.myline{
+    transition: visibility 3s, opacity 1s linear;
+}
+
+.mycircle{
+    transition: visibility 3s, opacity 1s linear;
 }
 /* svg{
     border: 3px solid red;

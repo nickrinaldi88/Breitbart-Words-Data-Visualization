@@ -245,6 +245,8 @@ d3.csv("breitbartData.csv").then((data) => {
 
     svg.selectAll(".x-axis").call(d3.axisBottom(xAxis));
 
+    d.Count = +d.Count;
+
     var yAxis = d3
       .scaleLinear()
       .domain([0, the_count])

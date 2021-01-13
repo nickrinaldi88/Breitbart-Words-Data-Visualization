@@ -1,5 +1,3 @@
-// load_csv
-
 d3.csv(
   "https://raw.githubusercontent.com/nickrinaldi88/BreitBart_DataVis/main/breitbartData.csv"
 ).then(function (csv) {
@@ -295,28 +293,37 @@ d3.csv("bb_totals.csv").then(function (csv) {
     .attr("dy", "-8%")
     .style("fill", "black")
     .text("Words");
-});
 
-d3.select("#slct2").on("change", function () {
-  var the_option = document.getElementById("slct2").value;
-  console.log(the_option);
-  if (the_option === "No Trump") {
-    noTrump();
-  } else if (the_option === "Trump") {
-    d3.csv("bb_totals.csv").then(function (csv) {
-      var margin = {
-          top: 20,
-          right: 30,
-          bottom: 30,
-          left: 0,
-        },
-        width = 1200 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
-      var x = d3.scaleLinear().domain([0, 40000]).range([0, width]);
+  // var the_option = console.log(document.getElementById("slct2").value);
+
+  d3.select("#slct2").on("change", function () {
+    var the_option = document.getElementById("slct2").value;
+    console.log(the_option);
+    if (the_option === "No Trump") {
+      noTrump();
+    } else if (the_option === "Trump") {
+      // redisplay lines
+      var trump_lines = svg2.selectAll(".myline");
+
+      trump_lines.attr("opacity", "1");
+
+      var trump_circles = svg2.selectAll(".mycircle");
+
+      trump_circles.attr("opacity", "1");
+      // .transition()
+      // .duration(3000);
+
+      // hide non-trump lines
+
+      var non_trump_lines = svg2.selectAll(".newline");
+
+      non_trump_lines.attr("opacity", "0");
+
+      var non_trump_circles = svg2.selectAll(".newcircle");
+      non_trump_circles.attr("opacity", "0");
 
       // console.log(d3.max(csv, (d) => d.Count));
-
-      var svg2 = d3.select("#sec-div").classed("svg-container", true);
+      var x = d3.scaleLinear().domain([0, 40000]).range([0, width]);
 
       svg2
         .selectAll(".myXaxis2")
@@ -347,101 +354,41 @@ d3.select("#slct2").on("change", function () {
         .transition()
         .duration(3000)
         .call(d3.axisLeft(y));
+    }
 
-      // lines
+    // lines;
+    // svg2
+    //   .selectAll("myline")
+    //   .data(csv)
+    //   .enter()
+    //   .append("line")
+    //   .attr("x1", function (d) {
+    //     return x(d.Count);
+    //   })
+    //   .attr("x2", x(0))
+    //   .attr("y1", function (d) {
+    //     return y(d.Word);
+    //   })
+    //   .attr("y2", function (d) {
+    //     return y(d.Word);
+    //   })
+    //   .attr("stroke", "grey");
 
-      var u2 = svg2.selectAll(".myline").data(csv);
-
-      u2.enter()
-        .append("line")
-        .attr("class", "myline")
-        .merge(u2)
-        .transition()
-        .duration(3000)
-        .attr("x1", function (d) {
-          return x(d.Count);
-        })
-        .attr("x2", x(0))
-        .attr("y1", function (d) {
-          return y(d.Word);
-        })
-        .attr("y2", function (d) {
-          return y(d.Word);
-        })
-        .attr("fill", "none")
-        .attr("stroke", "grey");
-
-      var u2_circ = svg2.selectAll(".mycircle").data(csv);
-
-      u2_circ
-        .enter()
-        .append("circle")
-        .attr("class", "mycircle")
-        .merge(u2)
-        // .data(csv)
-        // .enter()
-        .transition()
-        .duration(3000)
-        .attr("cx", function (d) {
-          return x(d.Count);
-        })
-        .attr("cy", function (d) {
-          return y(d.Word);
-        })
-        .attr("r", "4")
-        .style("fill", "#69b3a2")
-        .attr("stroke", "black");
-
-      // accept noTrump which contains non Trump data, or Trump which contains Trump data
-
-      // console.log(d3.max(csv, (d) => d.Count));
-
-      // x axis
-
-      var x = d3.scaleLinear().domain([0, 40000]).range([0, width]);
-
-      svg2
-        .append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .attr("class", "myXaxis2")
-        .call(d3.axisBottom(x))
-        .selectAll("text")
-        .attr("transform", "translate(-10, 0)rotate(-45)")
-        .style("text-anchor", "end");
-
-      svg2
-        .append("text")
-        .attr("class", "axis-label-x")
-        .attr("x", "40%")
-        .attr("dy", "55%")
-        .style("fill", "black")
-        .text("Total Word Count");
-
-      // y axis
-
-      var y = d3
-        .scaleBand()
-        .range([0, height])
-        .domain(
-          csv.map(function (d) {
-            return d.Word;
-          })
-        )
-        .padding(5);
-
-      svg2
-        .append("g")
-        .attr("class", "myYaxis2")
-        .call(d3.axisLeft(y))
-        .append("text")
-        .attr("class", "axis-label-y")
-        .attr("x", "-10%")
-        .attr("transform", "rotate(-90)")
-        .attr("dy", "-8%")
-        .style("fill", "black")
-        .text("Words");
-    });
-  }
+    // svg2
+    //   .selectAll("mycircle")
+    //   .data(csv)
+    //   .enter()
+    //   .append("circle")
+    //   .attr("cx", function (d) {
+    //     return x(d.Count);
+    //   })
+    //   .attr("cy", function (d) {
+    //     return y(d.Word);
+    //   })
+    //   .attr("r", "4")
+    //   .style("fill", "#69b3a2")
+    //   .attr("stroke", "black");
+  });
 
   function noTrump() {
     d3.csv("notrump.csv").then(function (data) {
@@ -454,7 +401,9 @@ d3.select("#slct2").on("change", function () {
         width = 1200 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
-      // var svg2 = d3.select("#sec-div").classed("svg-container", true);
+      // var svg2 = d3
+      //   .select("#sec-div")
+      //   .classed("svg-container", true)
       //   .append("svg")
       //   // .attr("width", width + margin.left + margin.right)
       //   // .attr("height", height + margin.top + margin.bottom)
@@ -479,8 +428,8 @@ d3.select("#slct2").on("change", function () {
         .attr("class", "axis-label-x")
         .attr("x", "40%")
         .attr("dy", "55%")
-        .style("fill", "black");
-      // .text("Total Word Count");
+        .style("fill", "black")
+        .text("Total Word Count");
 
       var y = d3
         .scaleBand()
@@ -502,12 +451,21 @@ d3.select("#slct2").on("change", function () {
 
       var trump_lines = svg2.selectAll(".myline");
 
-      trump_lines.attr("display", "none");
-      trump_line.attr("opacity", "0");
+      trump_lines.attr("opacity", 0);
 
       var trump_circles = svg2.selectAll(".mycircle");
-      trump_circles.attr("display", "none");
-      trump_circles.attr("opacity", "0");
+
+      trump_circles.attr("opacity", 0);
+
+      // redisplay upon selecting "No Trump" dropdown
+
+      var non_trump_lines = svg2.selectAll(".newline");
+
+      non_trump_lines.attr("opacity", "1");
+
+      var non_trump_circles = svg2.selectAll(".newcircle");
+
+      non_trump_circles.attr("opacity", "1");
 
       var u2 = svg2.selectAll(".newline").data(data);
 
@@ -575,7 +533,6 @@ d3.select("#slct2").on("change", function () {
 // Todo:
 // 1. Find out why our lines won't transition upon each selection
 // 2. Find out why the lines are hidden after No Trump is selected after the first time it's selected.
-// 3. create < 1000 section?
 
 // http://learnjsdata.com/read_data.html
 
