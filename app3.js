@@ -46,13 +46,13 @@ d3.csv(
     .select("#main-div")
     .classed("svg-container", true)
     .append("svg")
-    .attr("preserveAspectRatio", "xMinYMin meet")
+    // .attr("preserveAspectRatio", "xMinYMin meet")
     // .attr("width", width + margin.left + margin.right)
     // .attr("height", height + margin.top + margin.bottom)
     .attr("viewBox", "0 0 1400 800")
     .append("g")
-    .attr("transform", "translate(80, 20)")
-    .classed("svg-content-responsive", true);
+    .attr("transform", "translate(80, 20)");
+  // .classed("svg-content-responsive", true);
   // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   // Initialise a X axis:
@@ -168,8 +168,8 @@ d3.csv("bb_totals.csv").then(function (csv) {
     .attr("viewBox", "0 0 1400 800")
     .append("g")
     // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    .attr("transform", "translate(100, 20)")
-    .classed("svg-content-responsive", true);
+    .attr("transform", "translate(100, 20)");
+  // .classed("svg-content-responsive", true);
 
   var x = d3.scaleLinear().domain([0, 40000]).range([0, width]);
 
@@ -506,7 +506,7 @@ d3.csv("bb_totals.csv").then(function (csv) {
           return y(d.Word);
         })
         .attr("r", "4")
-        .style("fill", "#69b3a2")
+        .style("fill", "#240B36")
         .attr("stroke", "black");
 
       // create select option, with trump and without trump
@@ -531,8 +531,9 @@ d3.csv("bb_totals.csv").then(function (csv) {
 // 4. When we change back to Trump, lines are drawn again properly, but no transition
 
 // Todo:
-// 1. Find out why our lines won't transition upon each selection
-// 2. Find out why the lines are hidden after No Trump is selected after the first time it's selected.
+// 1. Decide on a final color
+// 2. Color the lines and circles for Trump/No Trump selections
+// 3. Edit Web Page size
 
 // http://learnjsdata.com/read_data.html
 

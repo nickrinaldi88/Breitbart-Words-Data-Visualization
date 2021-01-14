@@ -15,18 +15,34 @@ path{
 select{
     display: block;
     margin: 0 auto;
+    margin-bottom: 100px;
+    
 } 
 
 body{
-    background-color: #E0EEC6;
+    background-color: #DB9065;
 }
 
 .myline{
-    transition: visibility 3s, opacity 1s linear;
+    transition: opacity 3s linear;
 }
 
 .mycircle{
-    transition: visibility 3s, opacity 1s linear;
+    transition: opacity 3s linear;
+}
+
+.newline{
+    transition: opacity 3s linear;
+}
+
+.newcircle{
+    transition: opacity 3s linear;
+}
+
+.main-par{
+    text-align: center;
+    font-family: 'Playfair Display SC', serif;
+    margin-bottom: 100px;
 }
 /* svg{
     border: 3px solid red;
