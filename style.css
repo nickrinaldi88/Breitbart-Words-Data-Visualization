@@ -3,10 +3,6 @@
     font-family: 'Playfair Display SC', serif;
 }
 
-path{
-    stroke-width: 1px;
-    stroke: black;
-}
 
 /* svg{
     
@@ -19,8 +15,12 @@ select{
     
 } 
 
+.myXaxis{
+    font-weight: bold;
+}
+
 body{
-    background-color: #DB9065;
+    background-color: #EE6C4D;
 }
 
 .myline{
@@ -41,8 +41,22 @@ body{
 
 .main-par{
     text-align: center;
-    font-family: 'Playfair Display SC', serif;
-    margin-bottom: 100px;
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    /* margin-bottom: 100px; */
+    /* -webkit-text-stroke: .15px black; */
+}
+
+/* .axis-label-x{
+    font-weight: bold;
+} */
+
+.axis-label-y{
+    font-weight: bold;
+}
+
+.dashes{
+    text-align: center;
 }
 /* svg{
     border: 3px solid red;

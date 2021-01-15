@@ -49,7 +49,7 @@ d3.csv(
     // .attr("preserveAspectRatio", "xMinYMin meet")
     // .attr("width", width + margin.left + margin.right)
     // .attr("height", height + margin.top + margin.bottom)
-    .attr("viewBox", "0 0 1400 800")
+    .attr("viewBox", "0 0 1400 500")
     .append("g")
     .attr("transform", "translate(80, 20)");
   // .classed("svg-content-responsive", true);
@@ -66,8 +66,8 @@ d3.csv(
     .attr("class", "myXaxis")
     .append("text")
     .attr("class", "axis-label-x")
-    .attr("x", "50%")
-    .attr("dy", "4em")
+    .attr("x", "40%")
+    .attr("dy", "6em")
     .style("fill", "black")
     .text("Months");
   // .text("Months");
@@ -129,7 +129,7 @@ d3.csv(
           })
       )
       .attr("fill", "none")
-      .attr("stroke", "steelblue")
+      .attr("stroke", "white")
       .attr("stroke-width", 2.5);
   }
 
@@ -222,7 +222,7 @@ d3.csv("bb_totals.csv").then(function (csv) {
       return y(d.Word);
     })
     .attr("fill", "none")
-    .attr("stroke", "grey");
+    .attr("stroke", "white");
 
   var u2_circ = svg2.selectAll(".mycircle").data(csv);
 
@@ -242,7 +242,7 @@ d3.csv("bb_totals.csv").then(function (csv) {
       return y(d.Word);
     })
     .attr("r", "4")
-    .style("fill", "#69b3a2")
+    .style("fill", "black")
     .attr("stroke", "black");
 
   // accept noTrump which contains non Trump data, or Trump which contains Trump data
@@ -267,8 +267,8 @@ d3.csv("bb_totals.csv").then(function (csv) {
     .attr("class", "axis-label-x")
     .attr("x", "40%")
     .attr("dy", "55%")
-    .style("fill", "black")
-    .text("Total Word Count");
+    .style("fill", "black");
+  // .text("Total Word Count");
 
   // y axis
 
@@ -336,8 +336,8 @@ d3.csv("bb_totals.csv").then(function (csv) {
         .attr("class", "axis-label-x")
         .attr("x", "40%")
         .attr("dy", "55%")
-        .style("fill", "black")
-        .text("Total Word Count");
+        .style("fill", "black");
+      // .text("Total Word Count");
 
       var y = d3
         .scaleBand()
@@ -486,7 +486,7 @@ d3.csv("bb_totals.csv").then(function (csv) {
           return y(d.Word);
         })
         .attr("fill", "none")
-        .attr("stroke", "grey");
+        .attr("stroke", "white");
 
       var u2_circ = svg2.selectAll(".newcircle").data(data);
 
@@ -506,7 +506,7 @@ d3.csv("bb_totals.csv").then(function (csv) {
           return y(d.Word);
         })
         .attr("r", "4")
-        .style("fill", "#240B36")
+        .style("fill", "black")
         .attr("stroke", "black");
 
       // create select option, with trump and without trump
