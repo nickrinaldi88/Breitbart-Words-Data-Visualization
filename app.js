@@ -66,7 +66,7 @@ d3.csv(
     .attr("class", "myXaxis")
     .append("text")
     .attr("class", "axis-label-x")
-    .attr("x", "40%")
+    .attr("x", "45%")
     .attr("dy", "6em")
     .style("fill", "black")
     .text("Months");
@@ -187,8 +187,8 @@ d3.csv("bb_totals.csv").then(function (csv) {
     .attr("class", "axis-label-x")
     .attr("x", "40%")
     .attr("dy", "55%")
-    .style("fill", "black")
-    .text("Total Word Count");
+    .style("fill", "black");
+  // .text("Total Word Count");
 
   var y = d3
     .scaleBand()
@@ -268,8 +268,8 @@ d3.csv("bb_totals.csv").then(function (csv) {
     .attr("class", "axis-label-x")
     .attr("x", "40%")
     .attr("dy", "55%")
-    .style("fill", "black");
-  // .text("Total Word Count");
+    .style("fill", "black")
+    .text("Total Word Count");
 
   // y axis
 
