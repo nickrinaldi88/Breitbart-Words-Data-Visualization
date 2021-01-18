@@ -76,6 +76,7 @@ d3.csv(
   var y = d3.scaleLinear().range([height, 0]);
 
   var yAxis = d3.axisLeft().scale(y);
+
   svg
     .append("g")
     .attr("class", "myYaxis")
@@ -83,7 +84,7 @@ d3.csv(
     .attr("class", "axis-label-y")
     .attr("x", "-10%")
     .attr("transform", "rotate(-90)")
-    .attr("dy", "-7%")
+    .attr("dy", "-13%")
     .style("fill", "black")
     .text("Word Count");
 
@@ -290,7 +291,7 @@ d3.csv("bb_totals.csv").then(function (csv) {
     .attr("class", "axis-label-y")
     .attr("x", "-10%")
     .attr("transform", "rotate(-90)")
-    .attr("dy", "-8%")
+    .attr("dy", "-10%")
     .style("fill", "black")
     .text("Words");
 
@@ -531,8 +532,7 @@ d3.csv("bb_totals.csv").then(function (csv) {
 // 4. When we change back to Trump, lines are drawn again properly, but no transition
 
 // Todo:
-// 1. Decide on a final color
-// 2. Color the lines and circles for Trump/No Trump selections
+// 1. Figure out why x axis on bottom graph is larger size font
 // 3. Edit Web Page size
 
 // http://learnjsdata.com/read_data.html

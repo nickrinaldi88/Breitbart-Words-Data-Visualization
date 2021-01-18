@@ -5,7 +5,7 @@
 
 
 /* svg{
-    
+    margin-left: 10px;
 } */
 
 select{
@@ -15,9 +15,9 @@ select{
     
 } 
 
-.myXaxis{
+/* .myXaxis{
     font-weight: bold;
-}
+} */
 
 body{
     background-color: #EE6C4D;
@@ -53,6 +53,14 @@ body{
 
 .axis-label-y{
     font-weight: bold;
+    font-size: large;
+font-family: 'Playfair Display SC', serif;
+/* padding: 20px; */
+}
+
+.axis-label-x{
+    font-weight: bold;
+    font-size: large;
 }
 
 .dashes{
