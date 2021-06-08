@@ -1,5 +1,5 @@
 d3.csv(
-  "breitbartData.csv"
+  "https://raw.githubusercontent.com/nickrinaldi88/Breitbart-Words-Data-Visualization/master/breitbartData.csv"
 ).then(function (csv) {
   // reformat data
   //   console.log(csv);
