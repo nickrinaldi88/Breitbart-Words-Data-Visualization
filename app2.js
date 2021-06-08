@@ -566,17 +566,3 @@ d3.select("#slct2").on("change", function () {
   }
 });
 
-// Current Problem:
-// 1. initialliy, when No Trump is selected, our axis' and lines change accordingly
-// 2. when we then select trump, our lines are drawn instantly, and our axis transition.
-// 3. When we select No Trump any time after the initial instance, the axis change, but the lines disappear
-// 4. When we change back to Trump, lines are drawn again properly, but no transition
-
-// Todo:
-// 1. Find out why our lines won't transition upon each selection
-// 2. Find out why the lines are hidden after No Trump is selected after the first time it's selected.
-// 3. create < 1000 section?
-
-// http://learnjsdata.com/read_data.html
-
-// https://www.d3-graph-gallery.com/lollipop
