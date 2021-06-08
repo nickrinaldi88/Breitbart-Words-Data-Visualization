@@ -524,17 +524,3 @@ d3.csv("bb_totals.csv").then(function (csv) {
     });
   }
 });
-
-// Current Problem:
-// 1. initialliy, when No Trump is selected, our axis' and lines change accordingly
-// 2. when we then select trump, our lines are drawn instantly, and our axis transition.
-// 3. When we select No Trump any time after the initial instance, the axis change, but the lines disappear
-// 4. When we change back to Trump, lines are drawn again properly, but no transition
-
-// Todo:
-// 1. Figure out why x axis on bottom graph is larger size font
-// 3. Edit Web Page size
-
-// http://learnjsdata.com/read_data.html
-
-// https://www.d3-graph-gallery.com/lollipop
